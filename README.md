@@ -11,6 +11,14 @@ cargo add axum_static
 ```
 
 ```rust
-let app = Router::new()
-        .nest("/", axum_static::static_router("public"))
+// only router
+let app = axum_static::static_router("public")
+```
+
+
+```rust
+// with other endpoints
+ let app = Router::new()
+        .route("/", get(index))
+        .fallback(get_service(axum_static::static_router("public")))
 ```
